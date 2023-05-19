@@ -1,7 +1,7 @@
 from database import SessionLocal, engine
 from fastapi import Depends
 from models import user
-from typing import Annotated
+from typing_extensions import Annotated
 import jwt
 from fastapi import Header, Request, HTTPException, Depends
 from config import config
