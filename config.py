@@ -9,7 +9,7 @@ class Config:
 
     ACCESS_TOKEN_EXPIRE_MINUTES = 480
 
-    DB_HOSTTYPE = "mysql"
+    DB_HOSTTYPE = "mysql+mysqlconnector"
     DB_DATABASE = os.getenv('DB_DATABASE')
     DB_USERNAME = os.getenv('DB_USERNAME')
     DB_HOSTNAME = os.getenv('DB_HOSTNAME')
