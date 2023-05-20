@@ -25,8 +25,8 @@ async def add_question(params: admin.AddQuestionRequest, token = token_depenency
         raise HTTPException(401, 'Not an admin')
     
     question = Question(
-        question_link = params.questionLink,
-        solution_link = params.solutionLink,
+        question_link = params.questionLink.rstrip('/'),
+        solution_link = params.solutionLink.rstrip('/'),
         difficulty_level = params.difficultyLevel
     )
 
