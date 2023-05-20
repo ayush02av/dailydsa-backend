@@ -4,7 +4,6 @@ from dependency import db_dependency, token_depenency
 from sqlalchemy.orm import Session
 from models.user import User
 from models.question import Question
-from services.db_object_serializer import serialize
 
 router = APIRouter(
     prefix='/admin',
