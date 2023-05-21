@@ -6,7 +6,6 @@ from models.user import User
 from models.question import Question
 from models.submission import Submission
 from services.db_object_serializer import serialize
-from sqlalchemy import extract
 from datetime import datetime
 
 router = APIRouter(
@@ -50,7 +49,7 @@ async def history(token = token_depenency, db_session: Session = db_dependency):
     today = list()
     previous = list()
     
-    now_date = datetime.now().date()
+    now_date = datetime.utcnow().date()
     
     for q, s in db_session.query(Question, Submission).filter(
         Submission.user_id == token['id'],

@@ -5,7 +5,7 @@ from dependency import db_dependency
 from sqlalchemy.orm import Session
 from models.question import Question
 from services.db_object_serializer import serialize
-from datetime import datetime
+from datetime import datetime, timedelta
 from sqlalchemy import extract
 
 router = APIRouter(
@@ -18,9 +18,9 @@ async def daily_question(db_session: Session = db_dependency):
     # find question
     questions = db_session.query(Question)\
         .filter(
-                datetime.now().day == extract('day', Question.created_at),
-                datetime.now().month == extract('month', Question.created_at),
-                datetime.now().year == extract('year', Question.created_at)
+                datetime.utcnow().day == extract('day', Question.created_at),
+                datetime.utcnow().month == extract('month', Question.created_at),
+                datetime.utcnow().year == extract('year', Question.created_at)
         )\
         .all()
 
