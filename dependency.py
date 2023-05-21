@@ -1,6 +1,6 @@
 from database import SessionLocal, engine
 from fastapi import Depends
-from models import user, question
+from models import user, question, submission
 from typing_extensions import Annotated
 import jwt
 from fastapi import Header, HTTPException, Depends
@@ -8,6 +8,7 @@ from config import config
 
 user.Base.metadata.create_all(bind = engine)
 question.Base.metadata.create_all(bind = engine)
+submission.Base.metadata.create_all(bind = engine)
 
 def get_db_session():
     session = SessionLocal()
