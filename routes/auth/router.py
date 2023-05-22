@@ -18,6 +18,15 @@ router = APIRouter(
 async def entry(params: auth.EntryRequest, db_session: Session = db_dependency):
     details = jwt.decode(params.token, options={"verify_signature": False})
     details = auth.TempToken(**details)
+
+    print(details.nickname)
+    print(details.email)
+    print(details.sub)
+    print(details.given_name)
+    print(details.family_name)
+    print(details.picture)
+    
+    # raise HTTPException(500, 'internal server error')
     
     # find if user exists
     user = db_session.query(User).filter(User.email == details.email).first()
@@ -28,8 +37,8 @@ async def entry(params: auth.EntryRequest, db_session: Session = db_dependency):
             username = details.nickname,
             email = details.email,
             sub_password = hash(details.sub),
-            first_name = details.given_name,
-            last_name = details.family_name,
+            first_name = details.given_name if details.given_name != None else "",
+            last_name = details.family_name if details.family_name != None else "",
             picture = details.picture
         )
         db_session.add(user)

@@ -3,13 +3,13 @@ from datetime import datetime
 from typing import Optional
 
 class TempToken(BaseModel):
-    email: str
-    given_name: str
-    family_name: str
-    nickname: str
-    email: str
-    sub: str
-    picture: str
+    email: Optional[str]
+    given_name: Optional[str]
+    family_name: Optional[str]
+    nickname: Optional[str]
+    email: Optional[str]
+    sub: Optional[str]
+    picture: Optional[str]
 
 class AuthToken(BaseModel):
     id: str
