@@ -13,6 +13,16 @@ router = APIRouter(
     tags=['question']
 )
 
+@router.get('/', response_model = List[question.QuestionDatedResponse])
+async def history_of_question(db_session: Session = db_dependency):
+    # find question
+    questions = db_session.query(Question)\
+        .order_by(-Question.created_at)\
+        .limit(10)\
+        .all()
+
+    return [serialize(question) for question in questions if question.created_at.date() != datetime.utcnow().date()]
+
 @router.get('/daily', response_model = List[question.QuestionResponse])
 async def daily_question(db_session: Session = db_dependency):
     # find question
@@ -27,7 +37,7 @@ async def daily_question(db_session: Session = db_dependency):
     return [serialize(question) for question in questions]
 
 @router.get('/{id}', response_model = question.QuestionResponse)
-async def daily_question(id: int, db_session: Session = db_dependency):
+async def get_question(id: int, db_session: Session = db_dependency):
     # find question
     question = db_session.query(Question)\
         .filter(

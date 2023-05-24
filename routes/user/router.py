@@ -54,7 +54,10 @@ async def history(token = token_depenency, db_session: Session = db_dependency):
     for q, s in db_session.query(Question, Submission).filter(
         Submission.user_id == token['id'],
         Submission.question_id == Question.id
-    ).all():
+    )\
+    .order_by(-Submission.created_at)\
+    .limit(10)\
+    .all():
         submission = {
             'id': s.id,
             'question_link': q.question_link,
